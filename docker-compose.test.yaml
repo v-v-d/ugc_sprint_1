@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  sut:
+    container_name: ugc-tests
+    build:
+      context: .
+      target: tests
+    volumes:
+      - ./src:/code
+      - ./shared:/code/shared
+      - ./shared/logs:/code/shared/logs
+    env_file:
+      - .env.sample
+    environment:
+      - DEBUG=False
+      - TESTING=True
