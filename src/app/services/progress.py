@@ -21,7 +21,9 @@ class ProgressService:
 
     @elasticapm.async_capture_span()
     async def send_to_topic(
-        self, film_id: UUID4, progress: FilmProgressInputSchema,
+        self,
+        film_id: UUID4,
+        progress: FilmProgressInputSchema,
     ) -> None:
         serialized_data = orjson.dumps({"film_id": film_id, **progress.dict()})
 
@@ -30,13 +32,15 @@ class ProgressService:
         except KafkaError:
             logger.exception(
                 "Failed to send data to kafka topic %s. Data: %s",
-                self.TOPIC, serialized_data,
+                self.TOPIC,
+                serialized_data,
             )
             return
 
         logger.debug(
             "Successfully sent data to kafka topic %s. Data: %s",
-            self.TOPIC, serialized_data,
+            self.TOPIC,
+            serialized_data,
         )
 
 

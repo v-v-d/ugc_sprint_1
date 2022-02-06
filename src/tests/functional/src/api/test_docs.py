@@ -12,10 +12,7 @@ TARGET_PATHS = (
     app.url_path_for("get_redoc"),
     app.url_path_for("get_openapi_json"),
 )
-pytestmark = [
-    pytest.mark.asyncio,
-    pytest.mark.parametrize("url_path", TARGET_PATHS)
-]
+pytestmark = [pytest.mark.asyncio, pytest.mark.parametrize("url_path", TARGET_PATHS)]
 
 
 @pytest.fixture

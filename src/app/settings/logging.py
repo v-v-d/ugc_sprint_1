@@ -20,7 +20,7 @@ LOGGING = {
             "class": "logging.handlers.RotatingFileHandler",
             "formatter": "default",
             "filename": Path(settings.DIR_LOGS / "access.log").as_posix(),
-            "maxBytes": 1024 ** 3 * 10,
+            "maxBytes": 1024**3 * 10,
             "backupCount": 10,
         },
         "uvicorn.error": {
@@ -28,7 +28,7 @@ LOGGING = {
             "class": "logging.handlers.RotatingFileHandler",
             "formatter": "default",
             "filename": Path(settings.DIR_LOGS / "error.log").as_posix(),
-            "maxBytes": 1024 ** 3 * 10,
+            "maxBytes": 1024**3 * 10,
             "backupCount": 10,
         },
         "elasticapm": {
@@ -36,7 +36,7 @@ LOGGING = {
             "class": "logging.handlers.RotatingFileHandler",
             "formatter": "default",
             "filename": Path(settings.DIR_LOGS / "elasticapm.log").as_posix(),
-            "maxBytes": 1024 ** 3 * 10,
+            "maxBytes": 1024**3 * 10,
             "backupCount": 10,
         },
         "progress": {
@@ -44,22 +44,22 @@ LOGGING = {
             "class": "logging.handlers.RotatingFileHandler",
             "formatter": "default",
             "filename": Path(settings.DIR_LOGS / "progress.log").as_posix(),
-            "maxBytes": 1024 ** 3 * 10,
+            "maxBytes": 1024**3 * 10,
             "backupCount": 10,
         },
     },
     "loggers": {
-        'uvicorn.access': {
+        "uvicorn.access": {
             "handlers": ["console", "uvicorn.access"],
             "level": "INFO",
             "propagate": False,
         },
-        'uvicorn.error': {
+        "uvicorn.error": {
             "handlers": ["console", "uvicorn.error"],
             "level": "ERROR",
             "propagate": False,
         },
-        'elasticapm': {
+        "elasticapm": {
             "handlers": ["console", "elasticapm"],
             "level": "WARNING",
             "propagate": False,
@@ -70,8 +70,5 @@ LOGGING = {
             "propagate": False,
         },
     },
-    "root": {
-        "level": "DEBUG",
-        "handlers": ["console"]
-    },
+    "root": {"level": "DEBUG", "handlers": ["console"]},
 }

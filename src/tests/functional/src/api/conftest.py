@@ -40,6 +40,6 @@ def valid_jwt_token():
 def mocked_jwt_decode(request, mocker: MockerFixture, valid_jwt_token) -> None:
     if "origin_jwt_decode" in request.keywords:
         return
-    
+
     dependency_overrides = {oauth2_scheme: lambda: valid_jwt_token}
     mocker.patch.object(app, "dependency_overrides", dependency_overrides)

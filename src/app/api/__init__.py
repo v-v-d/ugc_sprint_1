@@ -11,4 +11,6 @@ api_root = APIRouter(
     dependencies=[Depends(decode_jwt)],
 )
 
-api_root.include_router(v1.progresses.router, prefix="/v1/progresses", tags=["v1 progresses"])
+api_root.include_router(
+    v1.progresses.router, prefix="/v1/progresses", tags=["v1 progresses"]
+)

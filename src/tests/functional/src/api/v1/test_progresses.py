@@ -59,25 +59,29 @@ async def test_unauthorized_no_jwt(client, film_id, request_body):
 
 
 @pytest.mark.origin_jwt_decode
-async def test_unauthorized_invalid_jwt(client, film_id, request_body, invalid_jwt_token):
+async def test_unauthorized_invalid_jwt(
+    client, film_id, request_body, invalid_jwt_token
+):
     response = await client.post(
         path=app.url_path_for("send_film_progress", film_id=str(film_id)),
         json=request_body,
         headers={
             "Authorization": invalid_jwt_token,
-        }
+        },
     )
     assert response.status_code == status.HTTP_401_UNAUTHORIZED, response.json()
 
 
 @pytest.mark.origin_jwt_decode
-async def test_unauthorized_invalid_jwt_payload(client, film_id, request_body, jwt_with_invalid_payload):
+async def test_unauthorized_invalid_jwt_payload(
+    client, film_id, request_body, jwt_with_invalid_payload
+):
     response = await client.post(
         path=app.url_path_for("send_film_progress", film_id=str(film_id)),
         json=request_body,
         headers={
             "Authorization": jwt_with_invalid_payload,
-        }
+        },
     )
     assert response.status_code == status.HTTP_401_UNAUTHORIZED, response.json()
     assert False

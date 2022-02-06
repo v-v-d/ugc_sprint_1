@@ -36,7 +36,7 @@ def decode_jwt_token(token: str) -> TokenData:
         decoded_token = jwt.decode(
             token,
             settings.SECURITY.JWT_AUTH.SECRET_KEY,
-            algorithms=[settings.SECURITY.JWT_AUTH.ALGORITHM]
+            algorithms=[settings.SECURITY.JWT_AUTH.ALGORITHM],
         )
     except JWTError:
         raise NotAuthenticatedError
