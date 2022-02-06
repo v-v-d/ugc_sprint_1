@@ -84,4 +84,3 @@ async def test_unauthorized_invalid_jwt_payload(
         },
     )
     assert response.status_code == status.HTTP_401_UNAUTHORIZED, response.json()
-    assert False
