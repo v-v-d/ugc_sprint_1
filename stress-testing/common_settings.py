@@ -1,13 +1,6 @@
 from pydantic import BaseSettings
 
 
-class ClickHouseSetting(BaseSettings):
-    HOST: str = 'localhost'
-
-    class Config:
-        env_prefix = "CLICKHOUSE_"
-
-
 class PostgresSetting(BaseSettings):
     NAME: str = 'postgres'
     USER: str = 'postgres'
@@ -20,5 +13,4 @@ class PostgresSetting(BaseSettings):
 
 
 class CommonSettings(BaseSettings):
-    CLICKHOUSE: ClickHouseSetting = ClickHouseSetting()
     POSTGRES: PostgresSetting = PostgresSetting()
