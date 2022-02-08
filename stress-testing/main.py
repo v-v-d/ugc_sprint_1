@@ -14,12 +14,9 @@ def collect_data():
     timestamp = 100
     move_id = 1
     while True:
-        data.append(Data(
-            id=post_id,
-            user_id=user_id,
-            timestamp=timestamp,
-            move_id=move_id
-        ))
+        data.append(
+            Data(id=post_id, user_id=user_id, timestamp=timestamp, move_id=move_id)
+        )
         data_count += 1
         post_id += 1
         user_id += 1
@@ -33,14 +30,18 @@ def collect_data():
 if __name__ == "__main__":
     data = collect_data()
     settings = CommonSettings()
-    dsl = {'dbname': settings.POSTGRES.NAME,
-           'user': settings.POSTGRES.USER,
-           'password': settings.POSTGRES.PASSWORD,
-           'host': settings.POSTGRES.HOST,
-           'port': settings.POSTGRES.PORT
-           }
+    dsl = {
+        "dbname": settings.POSTGRES.NAME,
+        "user": settings.POSTGRES.USER,
+        "password": settings.POSTGRES.PASSWORD,
+        "host": settings.POSTGRES.HOST,
+        "port": settings.POSTGRES.PORT,
+    }
     with psycopg2.connect(**dsl, cursor_factory=DictCursor) as pg_conn:
         postgres_stress_test = PostgresStressTest(pg_conn)
-        postgres_stress_test.save_all_data([astuple(obj) for obj in data], table=f"cluster_data",
-                                           rows_name=','.join(data[-1].__dataclass_fields__.keys()))
-        postgres_stress_test.search_data(table='cluster_data', id_obj=9999999)
+        postgres_stress_test.save_all_data(
+            [astuple(obj) for obj in data],
+            table=f"cluster_data",
+            rows_name=",".join(data[-1].__dataclass_fields__.keys()),
+        )
+        postgres_stress_test.search_data(table="cluster_data", id_obj=9999999)
