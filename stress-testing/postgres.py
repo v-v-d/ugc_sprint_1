@@ -12,7 +12,9 @@ class PostgresStressTest:
         cursor = self.pg_conn.cursor()
         query = f"""INSERT INTO {table} ({rows_name})
                     VALUES %s ; """
-        psycopg2.extras.execute_values(cur=cursor, sql=query, argslist=data, page_size=100)
+        psycopg2.extras.execute_values(
+            cur=cursor, sql=query, argslist=data, page_size=100
+        )
         self.pg_conn.commit()
         print(time.time() - start_time)
 
