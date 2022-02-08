@@ -24,4 +24,3 @@ def collect_data():
 
 if __name__ == "__main__":
     data = collect_data()
-
