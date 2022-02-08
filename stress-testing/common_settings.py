@@ -2,12 +2,12 @@ from pydantic import BaseSettings
 
 
 class ClickHouse(BaseSettings):
-    HOST: str = 'localhost'
+    HOST: str = "localhost"
 
 
 class KafkaSettings(BaseSettings):
-    TOPIC: str = 'clickhouse'
-    HOST: str = 'localhost'
+    TOPIC: str = "clickhouse"
+    HOST: str = "localhost"
     PORT: int = 9092
 
 

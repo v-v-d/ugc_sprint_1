@@ -6,4 +6,3 @@ class Data(BaseModel):
     user_id: int
     timestamp: int
     move_id: int
-
