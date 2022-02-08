@@ -1,8 +1,9 @@
 import psycopg2
-from psycopg2.extensions import connection as _connection
 from psycopg2.extras import DictCursor
 from common_settings import CommonSettings
 from model import Data
+from postgres import PostgresStressTest
+from dataclasses import astuple
 
 
 def collect_data():
@@ -38,4 +39,8 @@ if __name__ == "__main__":
            'host': settings.POSTGRES.HOST,
            'port': settings.POSTGRES.PORT
            }
-
+    with psycopg2.connect(**dsl, cursor_factory=DictCursor) as pg_conn:
+        postgres_stress_test = PostgresStressTest(pg_conn)
+        postgres_stress_test.save_all_data([astuple(obj) for obj in data], table=f"cluster_data",
+                                           rows_name=','.join(data[-1].__dataclass_fields__.keys()))
+        postgres_stress_test.search_data(table='cluster_data', id_obj=9999999)

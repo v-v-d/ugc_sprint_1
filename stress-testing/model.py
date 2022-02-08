@@ -1,9 +1,9 @@
-from pydantic import BaseModel
+from dataclasses import dataclass
 
 
-class Data(BaseModel):
+@dataclass(frozen=True)
+class Data:
     id: int
     user_id: int
     timestamp: int
     move_id: int
-
