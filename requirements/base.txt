@@ -1,3 +1,11 @@
+aiokafka==0.7.2
+backoff==1.11.1
+elastic-apm==6.7.2
+fastapi==0.70.0
 ipython==8.0.1
-typer==0.4.0
+orjson==3.6.6
 pydantic==1.9.0
+python-jose[cryptography]==3.3.0
+typer==0.4.0
+uvicorn==0.17.4
+uvloop==0.16.0
