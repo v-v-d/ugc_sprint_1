@@ -1,5 +1,9 @@
-
+import psycopg2
+from psycopg2.extensions import connection as _connection
+from psycopg2.extras import DictCursor
+from common_settings import CommonSettings
 from model import Data
+
 
 def collect_data():
     data = []
@@ -20,11 +24,18 @@ def collect_data():
         user_id += 1
         timestamp += 1
         move_id += 1
-        if data_count == 10:
+        if data_count == 10000000:
             break
     return data
 
 
 if __name__ == "__main__":
     data = collect_data()
+    settings = CommonSettings()
+    dsl = {'dbname': settings.POSTGRES.NAME,
+           'user': settings.POSTGRES.USER,
+           'password': settings.POSTGRES.PASSWORD,
+           'host': settings.POSTGRES.HOST,
+           'port': settings.POSTGRES.PORT
+           }
 

@@ -1,15 +1,24 @@
 from pydantic import BaseSettings
 
 
-class ClickHouse(BaseSettings):
+class ClickHouseSetting(BaseSettings):
     HOST: str = 'localhost'
 
+    class Config:
+        env_prefix = "CLICKHOUSE_"
 
-class KafkaSettings(BaseSettings):
-    TOPIC: str = 'clickhouse'
+
+class PostgresSetting(BaseSettings):
+    NAME: str = 'postgres'
+    USER: str = 'postgres'
+    PASSWORD: str = 'postgres'
     HOST: str = 'localhost'
-    PORT: int = 9092
+    PORT: int = 6432
+
+    class Config:
+        env_prefix = "DB_"
 
 
 class CommonSettings(BaseSettings):
-    KAFKA: KafkaSettings = KafkaSettings()
+    CLICKHOUSE: ClickHouseSetting = ClickHouseSetting()
+    POSTGRES: PostgresSetting = PostgresSetting()
