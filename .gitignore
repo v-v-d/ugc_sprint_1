@@ -130,3 +130,4 @@ docker-compose*override.*
 dev.Dockerfile
 
 /dbdata
+/data
