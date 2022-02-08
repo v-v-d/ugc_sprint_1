@@ -4,7 +4,7 @@ import pytest
 from async_asgi_testclient import TestClient
 from pytest_mock import MockerFixture
 
-from app import kafka, services
+from app import kafka, services, main
 from app.main import app
 from app.settings import settings
 
@@ -25,6 +25,7 @@ def disable_apm(session_mocker: MockerFixture) -> None:
 @pytest.fixture(scope="session", autouse=True)
 def mocked_kafka(event_loop, session_mocker: MockerFixture) -> None:
     session_mocker.patch.object(kafka, "producer", autospec=True)
+    session_mocker.patch.object(main.producer, "start", return_value=None)
     session_mocker.patch.object(services.progress, "producer", autospec=True)
 
 

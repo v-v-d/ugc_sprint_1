@@ -52,9 +52,17 @@ class KafkaSettings(BaseSettings):
     TOPIC: str
     BOOTSTRAP_SERVERS: str
     PRODUCER_TIMEOUT_MS: int
+    CONSUMER_GROUP_ID: str
 
     class Config:
         env_prefix = "KAFKA_"
+
+
+class BackoffSettings(BaseSettings):
+    MAX_TIME_SEC: int
+
+    class Config:
+        env_prefix = "BACKOFF_"
 
 
 class CommonSettings(BaseSettings):
@@ -70,3 +78,4 @@ class CommonSettings(BaseSettings):
     SECURITY: SecuritySettings = SecuritySettings()
     APM: APMSettings = APMSettings()
     KAFKA: KafkaSettings = KafkaSettings()
+    BACKOFF: BackoffSettings = BackoffSettings()
