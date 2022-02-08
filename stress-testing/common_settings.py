@@ -2,17 +2,17 @@ from pydantic import BaseSettings
 
 
 class ClickHouseSetting(BaseSettings):
-    HOST: str = 'localhost'
+    HOST: str = "localhost"
 
     class Config:
         env_prefix = "CLICKHOUSE_"
 
 
 class PostgresSetting(BaseSettings):
-    NAME: str = 'postgres'
-    USER: str = 'postgres'
-    PASSWORD: str = 'postgres'
-    HOST: str = 'localhost'
+    NAME: str = "postgres"
+    USER: str = "postgres"
+    PASSWORD: str = "postgres"
+    HOST: str = "localhost"
     PORT: int = 6432
 
     class Config:
