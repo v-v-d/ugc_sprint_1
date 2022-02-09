@@ -1,6 +1,8 @@
 import psycopg2
 import time
+import random
 from psycopg2.extras import DictCursor
+from locust import task
 
 
 class PostgresStressTest:
@@ -10,6 +12,14 @@ class PostgresStressTest:
     def save_all_data(self, data: list[object], table: str, rows_name: str):
         start_time = time.time()
         cursor = self.pg_conn.cursor()
+        cursor.execute(
+            f"""CREATE TABLE IF NOT EXISTS {table} (
+                      id INT,
+                      timestamp INT,
+                      move_id INT,
+                      user_id INT
+                    );"""
+        )
         query = f"""INSERT INTO {table} ({rows_name})
                     VALUES %s ; """
         psycopg2.extras.execute_values(
@@ -21,8 +31,9 @@ class PostgresStressTest:
     def search_data(self, table, id_obj):
         start_time = time.time()
         cursor = self.pg_conn.cursor()
-        cursor.execute(
-            f"""SELECT * FROM {table}
-                WHERE id={id_obj}; """
-        )
+        for i in range(101):
+            cursor.execute(
+                f"""SELECT * FROM {table}
+                    WHERE id={random.randint(1, 9999999)}; """
+            )
         print(time.time() - start_time)
