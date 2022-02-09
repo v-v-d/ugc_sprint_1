@@ -28,7 +28,7 @@ class PostgresStressTest:
         self.pg_conn.commit()
         print(time.time() - start_time)
 
-    def search_data(self, table, id_obj):
+    def search_data(self, table):
         start_time = time.time()
         cursor = self.pg_conn.cursor()
         for i in range(101):

@@ -44,4 +44,4 @@ if __name__ == "__main__":
             table=f"cluster_data",
             rows_name=",".join(data[-1].__dataclass_fields__.keys()),
         )
-        postgres_stress_test.search_data(table="cluster_data", id_obj=9999999)
+        postgres_stress_test.search_data(table="cluster_data")
