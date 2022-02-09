@@ -8,7 +8,7 @@ agent User
 cloud web {
 }
 
-title AS_IS
+title online_cinema schema AS_IS
 
 node admin_panel {
     component nginx_admin
