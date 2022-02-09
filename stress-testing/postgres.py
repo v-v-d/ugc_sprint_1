@@ -2,7 +2,6 @@ import psycopg2
 import time
 import random
 from psycopg2.extras import DictCursor
-from locust import task
 
 
 class PostgresStressTest:
