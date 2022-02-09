@@ -1,4 +1,5 @@
 @startuml
+!theme mars
 skinparam componentStyle uml1
 
 agent Admin
@@ -7,7 +8,7 @@ agent User
 cloud web {
 }
 
-title online-cinema
+title AS_IS
 
 node admin_panel {
     component nginx_admin
