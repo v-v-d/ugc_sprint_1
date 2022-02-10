@@ -1,0 +1,87 @@
+@startuml
+!theme mars
+skinparam componentStyle uml1
+
+agent Admin
+agent User
+agent Analyst
+
+cloud web {
+}
+
+title online_ciname schema  TO_BE
+
+node admin_panel {
+    component nginx_admin
+    database postgres_admin
+
+    [admin_app] <-down-> postgres_admin
+    nginx_admin <-down-> [admin_app]
+}
+
+node async_api {
+    component nginx_async
+    database redis_async
+    database elastic_async
+    component kibana_async
+
+    kibana_async <-down-> elastic_async
+    [async_web_api] <-down-> redis_async
+    [async_web_api] <-up-> nginx_async
+    elastic_async <-up-> [async_web_api]
+}
+
+node auth {
+    component nginx_auth
+    database redis_auth
+    database postgres_auth
+
+    redis_auth <-up-> [auth_app]
+    [auth_app] <-up-> postgres_auth
+    nginx_auth <-> [auth_app]
+}
+
+node ugc {
+    component nginx_ugc
+    component kafka
+    component clickhouse
+    component redis_ugc
+    component ETL_ugc
+
+    nginx_ugc <-down-> [ugc_app]
+    [ugc_app] <-down-> kafka
+    kafka <-down-> clickhouse
+    ETL_ugc <-up-> redis_ugc
+    ETL_ugc <-> kafka
+    ETL_ugc <-> clickhouse
+}
+
+node ETL
+
+node ELK {
+    component apm_server
+    database elastic_elk
+    component kibana
+
+    elastic_elk <-down-> kibana
+    apm_server <-down-> elastic_elk
+}
+
+User --> web
+Admin --> web
+
+web <----> admin_panel
+web <----> auth
+web <----> async_api
+web <----> ugc
+
+auth <---down-> ELK
+async_api <---down-> ELK
+ugc <---down--> ELK
+
+clickhouse <-down- Analyst
+
+
+postgres_admin <---> ETL
+elastic_async <---> ETL
+@enduml
