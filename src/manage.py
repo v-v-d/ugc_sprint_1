@@ -1,5 +1,8 @@
 import typer
+import uvicorn
 from IPython import embed
+
+from app.settings import settings
 
 typer_app = typer.Typer()
 
@@ -11,8 +14,7 @@ def shell():
 
 @typer_app.command()
 def runserver():
-    # TODO: run the server
-    print("hello from ugc app.")
+    uvicorn.run(**settings.UVICORN.dict())
 
 
 if __name__ == "__main__":
