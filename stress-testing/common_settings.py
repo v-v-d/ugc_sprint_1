@@ -8,9 +8,6 @@ class PostgresSetting(BaseSettings):
     HOST: str = "localhost"
     PORT: int = 6432
 
-    class Config:
-        env_prefix = "DB_"
-
 
 class CommonSettings(BaseSettings):
     POSTGRES: PostgresSetting = PostgresSetting()
