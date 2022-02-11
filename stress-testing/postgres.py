@@ -35,4 +35,5 @@ class PostgresStressTest:
                 f"""SELECT * FROM {table}
                     WHERE id={random.randint(1, 9999999)}; """
             )
+
         print(time.time() - start_time)
