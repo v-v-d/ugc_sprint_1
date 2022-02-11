@@ -4,6 +4,8 @@ from common_settings import CommonSettings
 from model import Data
 from postgres import PostgresStressTest
 from dataclasses import astuple
+from clickhouse_driver import Client
+from clickhouse import ClickHouse
 
 
 def collect_data():
@@ -37,6 +39,7 @@ if __name__ == "__main__":
         "host": settings.POSTGRES.HOST,
         "port": settings.POSTGRES.PORT,
     }
+
     with psycopg2.connect(**dsl, cursor_factory=DictCursor) as pg_conn:
         postgres_stress_test = PostgresStressTest(pg_conn)
         postgres_stress_test.save_all_data(
@@ -45,3 +48,6 @@ if __name__ == "__main__":
             rows_name=",".join(data[-1].__dataclass_fields__.keys()),
         )
         postgres_stress_test.search_data(table="cluster_data")
+    clickhouse = ClickHouse(Client(settings.CLICKHOUSE.HOST))
+    clickhouse.save_all_data([astuple(obj) for obj in data])
+    clickhouse.search_clickhouse()

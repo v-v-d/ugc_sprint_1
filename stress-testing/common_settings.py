@@ -9,5 +9,10 @@ class PostgresSetting(BaseSettings):
     PORT: int = 6432
 
 
+class Clickhouse(BaseSettings):
+    HOST: str = "localhost"
+
+
 class CommonSettings(BaseSettings):
     POSTGRES: PostgresSetting = PostgresSetting()
+    CLICKHOUSE: Clickhouse = Clickhouse()
