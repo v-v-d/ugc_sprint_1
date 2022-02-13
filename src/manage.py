@@ -16,6 +16,7 @@ def coro(func: Callable) -> Callable:
     @wraps(func)
     def wrapper(*args, **kwargs) -> Any:
         return asyncio.run(func(*args, **kwargs))
+
     return wrapper
 
 

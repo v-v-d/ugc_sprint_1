@@ -27,7 +27,9 @@ def disable_apm(session_mocker: MockerFixture) -> None:
 def mocked_kafka(event_loop, session_mocker: MockerFixture) -> None:
     mock = session_mocker.AsyncMock(spec=AIOKafkaProducer)
     session_mocker.patch.object(kafka.producer_container, "_instance", mock)
-    session_mocker.patch.object(main.producer_container._instance, "start", return_value=None)
+    session_mocker.patch.object(
+        main.producer_container._instance, "start", return_value=None
+    )
     session_mocker.patch.object(services.progress.producer_container, "_instance", mock)
 
 
