@@ -63,7 +63,7 @@ class ETL:
             chunk = []
 
             while True:
-                result = await self.extract()
+                result = await self.kafka_consumer.getmany(timeout_ms=self.POLL_TIMEOUT)
 
                 if not result and chunk:
                     yield chunk
@@ -75,9 +75,6 @@ class ETL:
                 if len(chunk) == self.CHUNK_SIZE:
                     yield chunk
                     chunk = []
-
-    async def extract(self):
-        return await self.kafka_consumer.getmany(timeout_ms=self.POLL_TIMEOUT)
 
     async def load(self, chunk: list[ConsumerRecord]) -> None:
         data = [tuple(msg.value.values()) for msg in chunk]
