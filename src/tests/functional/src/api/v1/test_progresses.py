@@ -36,7 +36,6 @@ def request_body() -> dict[str, Any]:
         user_id=fake("uuid"),
         progress=progress,
         total=total,
-        timestamp_local=fake("integer_number", start=1644179333, end=1644179433),
     )
 
 

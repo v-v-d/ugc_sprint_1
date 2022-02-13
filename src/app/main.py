@@ -7,7 +7,7 @@ from fastapi.responses import ORJSONResponse
 from app.api import api_root
 from app.api.docs import router as api_docs
 from app.apm import init_apm
-from app.kafka import producer
+from app.kafka import producer_container
 from app.settings import settings
 from app.settings.logging import LOGGING
 
@@ -26,12 +26,12 @@ app.add_middleware(TrustedHostMiddleware, allowed_hosts=settings.SECURITY.ALLOWE
 
 @app.on_event("startup")
 async def startup():
-    await producer.start()
+    await producer_container.instance.start()
 
 
 @app.on_event("shutdown")
 async def shutdown():
-    await producer.stop()
+    await producer_container.instance.stop()
 
 
 app.include_router(api_docs)
