@@ -42,7 +42,9 @@ class ETL:
                 await self.load(chunk)
 
     async def init_storage(self) -> None:
-        await self.ch_client.execute(f"CREATE DATABASE IF NOT EXISTS movies ON CLUSTER company_cluster")
+        await self.ch_client.execute(
+            f"CREATE DATABASE IF NOT EXISTS movies ON CLUSTER company_cluster"
+        )
         await self.ch_client.execute(
             f"""
             CREATE TABLE IF NOT EXISTS movies.{self.CH_TABLE} 
@@ -85,7 +87,7 @@ class ETL:
         try:
             await self.ch_client.execute(
                 f"INSERT INTO movies.{self.CH_TABLE} (film_id, user_id, progress, total, created_at) VALUES",
-                *data
+                *data,
             )
         except ChClientError:
             logger.exception("Failed to load data to ClickHouse! %s", data)
