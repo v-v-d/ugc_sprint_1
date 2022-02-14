@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pydantic import BaseSettings
+from pydantic import BaseSettings, AnyUrl, validator
 
 
 class UvicornSettings(BaseSettings):
@@ -65,6 +65,32 @@ class BackoffSettings(BaseSettings):
         env_prefix = "BACKOFF_"
 
 
+class ClickHouseSettings(BaseSettings):
+    HOST: str
+    PORT: str
+    PROTOCOL: str = "http"
+    TABLE_NAME: str
+    URL: AnyUrl = None
+
+    @validator("URL", pre=True)
+    def build_url(cls, v, values) -> str:
+        if v:
+            return v
+
+        return f"{values['PROTOCOL']}://{values['HOST']}:{values['PORT']}/"
+
+    class Config:
+        env_prefix = "CH_"
+
+
+class ETLSettings(BaseSettings):
+    CHUNK_SIZE: int = 5
+    KAFKA_POLL_TIMEOUT_MS: int = 10000
+
+    class Config:
+        env_prefix = "ETL_"
+
+
 class CommonSettings(BaseSettings):
     PROJECT_NAME: str = "ugc-app"
     OPENAPI_URL: str = "/api/openapi.json"
@@ -79,3 +105,5 @@ class CommonSettings(BaseSettings):
     APM: APMSettings = APMSettings()
     KAFKA: KafkaSettings = KafkaSettings()
     BACKOFF: BackoffSettings = BackoffSettings()
+    CH: ClickHouseSettings = ClickHouseSettings()
+    ETL: ETLSettings = ETLSettings()
