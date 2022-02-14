@@ -13,6 +13,13 @@
 - сервис Movies ETL: https://github.com/v-v-d/ETL
 - сервис Admin panel: https://github.com/v-v-d/Admin_panel_sprint_1
 
+## Архитектура системы
+Архитектура всей системы до и после внедрения сервса UGC описана здесь
+https://github.com/v-v-d/ugc_sprint_1/tree/main/architecture
+
+## Нагрузочное тестирование
+Результаты нагрузочного тестирования описаны здесь 
+https://github.com/v-v-d/ugc_sprint_1/tree/main/stress-testing
 
 ## Основные сущности
 - Прогресс по просмотру фильма - id фильма, id пользователя, прогресс просмотра, длительность фильма, 
