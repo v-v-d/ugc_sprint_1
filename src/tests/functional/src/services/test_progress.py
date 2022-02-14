@@ -18,14 +18,14 @@ pytestmark = pytest.mark.asyncio
 @pytest.fixture
 def mocked_kafka_producer(mocker: MockerFixture) -> None:
     mock = mocker.AsyncMock(spec=AIOKafkaProducer)
-    mocker.patch.object(progress, "producer", mock)
+    mocker.patch.object(progress.producer_container, "_instance", return_value=mock)
 
 
 @pytest.fixture
 def failed_kafka_producer(mocker: MockerFixture) -> None:
     mock = mocker.AsyncMock(spec=AIOKafkaProducer)
     mock.send.side_effect = KafkaError
-    mocker.patch.object(progress, "producer", mock)
+    mocker.patch.object(progress.producer_container, "_instance", return_value=mock)
 
 
 @pytest.fixture

@@ -33,7 +33,7 @@ docker network create yandex
 ```shell
 docker-compose up --build
 ```
-3. TODO
+3. Создать топик Kafka
 
 ### Тестирование
 Собрать тестовое окружение и запустить тесты

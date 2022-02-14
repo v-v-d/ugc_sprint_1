@@ -9,7 +9,7 @@ RUN pip3 install -r prod.txt
 
 ADD ./src/app /code/app
 ADD ./src/manage.py /code/manage.py
-ADD entrypoint.sh /entrypoint.sh
+ADD app-entrypoint.sh /entrypoint.sh
 
 COPY wait-for-it.sh /wait-for-it.sh
 RUN chmod a+x /entrypoint.sh
