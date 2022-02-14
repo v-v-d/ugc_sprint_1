@@ -49,9 +49,8 @@ node ugc {
 
     nginx_ugc <-down-> [ugc_app]
     [ugc_app] <-down-> kafka
-    kafka <-down-> clickhouse
     ETL_ugc <-> kafka
-    ETL_ugc <-> clickhouse
+    ETL_ugc <-down-> clickhouse
 }
 
 node ETL
