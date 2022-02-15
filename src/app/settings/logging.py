@@ -47,14 +47,6 @@ LOGGING = {
             "maxBytes": 1024**3 * 10,
             "backupCount": 10,
         },
-        "etl": {
-            "level": settings.LOG_LEVEL,
-            "class": "logging.handlers.RotatingFileHandler",
-            "formatter": "default",
-            "filename": Path(settings.DIR_LOGS / "etl.log").as_posix(),
-            "maxBytes": 1024**3 * 10,
-            "backupCount": 10,
-        },
     },
     "loggers": {
         "uvicorn.access": {
@@ -74,11 +66,6 @@ LOGGING = {
         },
         "app.services.progress": {
             "handlers": ["console", "progress"],
-            "level": settings.LOG_LEVEL,
-            "propagate": False,
-        },
-        "app.etl": {
-            "handlers": ["console", "etl"],
             "level": settings.LOG_LEVEL,
             "propagate": False,
         },

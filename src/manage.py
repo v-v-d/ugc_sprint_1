@@ -6,8 +6,8 @@ import typer
 import uvicorn
 from IPython import embed
 
-from app.etl import start_etl
 from app.settings import settings
+from etl.main import start_etl
 
 typer_app = typer.Typer()
 

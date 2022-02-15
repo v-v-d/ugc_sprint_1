@@ -5,8 +5,8 @@ from aiochclient import ChClient, ChClientError
 from aiokafka import AIOKafkaConsumer, ConsumerRecord
 from httpx import AsyncClient
 
-from app.kafka import get_consumer
-from app.settings import settings
+from etl.kafka import get_consumer
+from etl.settings import settings
 
 logger = getLogger(__name__)
 
