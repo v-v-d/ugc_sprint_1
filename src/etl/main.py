@@ -15,10 +15,6 @@ class ClickHouseConnectionError(Exception):
     pass
 
 
-class MaxWaitTimeExceededError(Exception):
-    pass
-
-
 class ETL:
     CHUNK_SIZE: int = settings.ETL.CHUNK_SIZE
     POLL_TIMEOUT: int = settings.ETL.KAFKA_POLL_TIMEOUT_MS
@@ -71,8 +67,7 @@ class ETL:
                     yield chunk
                     chunk = []
 
-                for _, messages in result.items():
-                    chunk.extend(messages)
+                chunk.extend(*result.values())
 
                 if len(chunk) == self.CHUNK_SIZE:
                     yield chunk
@@ -87,17 +82,13 @@ class ETL:
                 *data,
             )
         except ChClientError:
-            logger.exception("Failed to load data to ClickHouse! %s", data)
+            logger.exception("Failed to load data to ClickHouse!")
             return
 
         await self.kafka_consumer.commit()
-        logger.debug("Successfully load data to ClickHouse! %s", data)
+        logger.debug("Successfully load data to ClickHouse!")
 
 
 async def start_etl() -> None:
     etl = ETL()
-
-    try:
-        await etl.run()
-    except:
-        logger.exception("Failed to run ETL!")
+    await etl.run()

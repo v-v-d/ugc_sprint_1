@@ -18,8 +18,12 @@ pytestmark = pytest.mark.asyncio
 
 @pytest.fixture(autouse=True)
 def mocked_progress_service(mocker: MockerFixture) -> None:
-    mock = mocker.AsyncMock(spec=progress.ProgressService)
-    mocker.patch.object(progress, "get_progress_service", return_value=mock)
+    mocker.patch.object(progress.ProgressService, "send_to_topic", return_value=None)
+
+
+@pytest.fixture
+def spy_send_to_topic(mocker: MockerFixture):
+    yield mocker.spy(progress.ProgressService, "send_to_topic")
 
 
 @pytest.fixture
@@ -39,13 +43,14 @@ def request_body() -> dict[str, Any]:
     )
 
 
-async def test_ok(client, film_id, request_body):
+async def test_ok(client, film_id, request_body, spy_send_to_topic):
     response = await client.post(
         path=app.url_path_for("send_film_progress", film_id=str(film_id)),
         json=request_body,
     )
     assert response.status_code == status.HTTP_202_ACCEPTED, response.json()
     assert response.json() == DefaultSuccessResponse()
+    spy_send_to_topic.assert_called_once()
 
 
 @pytest.mark.origin_jwt_decode
