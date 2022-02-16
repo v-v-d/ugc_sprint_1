@@ -1,8 +1,8 @@
 import os
 
-from app.settings.base import CommonSettings
-from app.settings.dev import DevSettings
-from app.settings.prod import ProdSettings
+from etl.settings.base import CommonSettings
+from etl.settings.dev import DevSettings
+from etl.settings.prod import ProdSettings
 
 settings_module = os.environ.get("SETTINGS", "prod")
 

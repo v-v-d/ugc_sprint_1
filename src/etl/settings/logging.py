@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from app.settings import settings
+from etl.settings import settings
 
 LOGGING = {
     "version": 1,

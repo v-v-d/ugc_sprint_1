@@ -4,7 +4,7 @@ from typing import Any
 import orjson
 from aiokafka import AIOKafkaConsumer
 
-from app.settings import settings
+from etl.settings import settings
 
 
 def deserializer(serialized: bytes) -> dict[str, Any]:

@@ -1,4 +1,4 @@
-from app.settings.base import CommonSettings
+from etl.settings.base import CommonSettings
 
 
 class DevSettings(CommonSettings):
