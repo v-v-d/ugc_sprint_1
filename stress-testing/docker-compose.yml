@@ -1,6 +1,17 @@
 version: '3.5'
 
 services:
+  pg:
+    image: postgres:13
+    container_name: pg
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=passwd
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+    expose:
+      - "5432"
+
   zookeeper:
     image: zookeeper:3.5
     container_name: zookeeper
