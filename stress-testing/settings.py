@@ -6,9 +6,9 @@ class PostgresSettings(BaseSettings):
     PASSWORD: str = "passwd"
     HOST: str = "pg"
     PORT: int = 5432
-    PATH: str = "stress-test-db"
+    DB_PATH: str = "postgres"
     DSN: PostgresDsn = None
-    TABLE_NAME: str = "stress-test"
+    TABLE_NAME: str = "stress_test"
 
     @validator("DSN", pre=True)
     def build_dsn(cls, v, values) -> str:
@@ -19,13 +19,16 @@ class PostgresSettings(BaseSettings):
         passwd = values["PASSWORD"]
         host = values["HOST"]
         port = values["PORT"]
-        path = values["PATH"]
+        path = values["DB_PATH"]
 
         return f"postgres://{user}:{passwd}@{host}:{port}/{path}"
 
 
 class ClickhouseSettings(BaseSettings):
-    HOST: str = "localhost"
+    HOST: str = "clickhouse-node1-st"
+    DB_NAME: str = "example"
+    CLUSTER_NAME: str = "company_cluster"
+    TABLE_NAME: str = "regular_table"
 
 
 class Settings(BaseSettings):

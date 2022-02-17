@@ -7,7 +7,6 @@ import uvicorn
 from IPython import embed
 
 from app.settings import settings
-from etl.main import start_etl
 
 typer_app = typer.Typer()
 
@@ -33,6 +32,9 @@ def runserver():
 @typer_app.command()
 @coro
 async def run_etl():
+    # multiple docker containers with different code but one manage.py
+    from etl.main import start_etl
+
     await start_etl()
 
 
