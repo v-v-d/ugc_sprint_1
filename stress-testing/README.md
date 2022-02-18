@@ -19,5 +19,5 @@ docker-compose -f stress-testing/docker-compose.yml up --build --exit-code-from 
 ### Clickhouse
 Результаты:
 1. 27.94526818200029 сек
-2. 1072.9344200260002 сек 
-3. 29.937966884999696 сек 
+2. 20693.037241441  сек 
+3. 0.3229187990000355  сек 
