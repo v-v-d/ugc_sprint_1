@@ -35,10 +35,14 @@ def elapsed(test_name: str) -> Callable:
                     kwargs.pop("cursor")
                 if "client" in kwargs:
                     kwargs.pop("client")
-                f.write(f"{test_name} {func.__name__} {kwargs or ''} elapsed {elapsed} \n")
+                f.write(
+                    f"{test_name} {func.__name__} {kwargs or ''} elapsed {elapsed} \n"
+                )
 
             return result
+
         return wrapper
+
     return decorator
 
 
@@ -53,7 +57,7 @@ def run_postgres_stress_test(chunk_size: int) -> None:
                 INSERT INTO {settings.POSTGRES.TABLE_NAME} (id, ts, movie_id, user_id) 
                 VALUES (%s, %s, %s, %s)
                 """,
-                chunk
+                chunk,
             )
             counter += chunk_size
 
@@ -62,7 +66,9 @@ def run_postgres_stress_test(chunk_size: int) -> None:
         for i in range(settings.SELECTS_QTY):
             print(f"+++++++++++++++++++++++ select {i} +++++++++++++++++++++++")
             random_id = random.randint(1, settings.ROWS_QTY)
-            cursor.execute(f"SELECT * FROM {settings.POSTGRES.TABLE_NAME} WHERE id={random_id};")
+            cursor.execute(
+                f"SELECT * FROM {settings.POSTGRES.TABLE_NAME} WHERE id={random_id};"
+            )
 
     with psycopg2.connect(settings.POSTGRES.DSN) as pg_conn:
         cursor = pg_conn.cursor()
@@ -94,7 +100,7 @@ def run_clickhouse_stress_test(chunk_size: int) -> None:
             print(f"/////////////////// chunk {counter} processed ///////////////////")
             client.execute(
                 f"INSERT INTO {settings.CLICKHOUSE.DB_NAME}.{settings.CLICKHOUSE.TABLE_NAME} (id, ts, movie_id, user_id) VALUES",
-                chunk
+                chunk,
             )
             counter += chunk_size
 
@@ -108,7 +114,9 @@ def run_clickhouse_stress_test(chunk_size: int) -> None:
             )
 
     client = Client(settings.CLICKHOUSE.HOST)
-    client.execute(f"CREATE DATABASE IF NOT EXISTS {settings.CLICKHOUSE.DB_NAME} ON CLUSTER {settings.CLICKHOUSE.CLUSTER_NAME}")
+    client.execute(
+        f"CREATE DATABASE IF NOT EXISTS {settings.CLICKHOUSE.DB_NAME} ON CLUSTER {settings.CLICKHOUSE.CLUSTER_NAME}"
+    )
     client.execute(
         f"CREATE TABLE IF NOT EXISTS {settings.CLICKHOUSE.DB_NAME}.{settings.CLICKHOUSE.TABLE_NAME} ON CLUSTER {settings.CLICKHOUSE.CLUSTER_NAME} "
         "(id Int64, ts Int32, movie_id Int64, user_id Int64)"
@@ -117,13 +125,15 @@ def run_clickhouse_stress_test(chunk_size: int) -> None:
 
     insert_data(client=client, chunk_size=chunk_size)
 
-    client.execute(f"TRUNCATE TABLE {settings.CLICKHOUSE.DB_NAME}.{settings.CLICKHOUSE.TABLE_NAME} ON CLUSTER {settings.CLICKHOUSE.CLUSTER_NAME}")
+    client.execute(
+        f"TRUNCATE TABLE {settings.CLICKHOUSE.DB_NAME}.{settings.CLICKHOUSE.TABLE_NAME} ON CLUSTER {settings.CLICKHOUSE.CLUSTER_NAME}"
+    )
 
     insert_data(client=client, chunk_size=1)
 
     select_data(client=client)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # run_postgres_stress_test(settings.CHUNK_SIZE)
     run_clickhouse_stress_test(settings.CHUNK_SIZE)

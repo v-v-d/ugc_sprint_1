@@ -15,7 +15,7 @@ router = APIRouter()
     },
     status_code=status.HTTP_202_ACCEPTED,
     description="Receives a message with the progress of watching a "
-                "movie and reload it into the analytical storage."
+    "movie and reload it into the analytical storage.",
 )
 async def send_film_progress(
     film_id: UUID4,
