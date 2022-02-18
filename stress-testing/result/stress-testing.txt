@@ -1,0 +1,6 @@
+POSTGRESQL insert_data {'chunk_size': 1000} elapsed 641.8400766780005 
+POSTGRESQL insert_data {'chunk_size': 1} elapsed 1072.9344200260002 
+POSTGRESQL select_data  elapsed 29.937966884999696 
+CLICK_HOUSE insert_data {'chunk_size': 1000} elapsed 27.94526818200029 
+CLICK_HOUSE insert_data {'chunk_size': 1} elapsed 20693.037241441 
+CLICK_HOUSE select_data  elapsed 0.3229187990000355 

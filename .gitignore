@@ -131,3 +131,4 @@ dev.Dockerfile
 
 /dbdata
 /data
+/stress-testing/data

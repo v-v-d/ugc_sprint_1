@@ -5,17 +5,13 @@ from aiochclient import ChClient, ChClientError
 from aiokafka import AIOKafkaConsumer, ConsumerRecord
 from httpx import AsyncClient
 
-from app.kafka import get_consumer
-from app.settings import settings
+from etl.kafka import get_consumer
+from etl.settings import settings
 
 logger = getLogger(__name__)
 
 
 class ClickHouseConnectionError(Exception):
-    pass
-
-
-class MaxWaitTimeExceededError(Exception):
     pass
 
 
@@ -71,8 +67,7 @@ class ETL:
                     yield chunk
                     chunk = []
 
-                for _, messages in result.items():
-                    chunk.extend(messages)
+                chunk.extend(*result.values())
 
                 if len(chunk) == self.CHUNK_SIZE:
                     yield chunk
@@ -87,17 +82,13 @@ class ETL:
                 *data,
             )
         except ChClientError:
-            logger.exception("Failed to load data to ClickHouse! %s", data)
+            logger.exception("Failed to load data to ClickHouse!")
             return
 
         await self.kafka_consumer.commit()
-        logger.debug("Successfully load data to ClickHouse! %s", data)
+        logger.debug("Successfully load data to ClickHouse!")
 
 
 async def start_etl() -> None:
     etl = ETL()
-
-    try:
-        await etl.run()
-    except:
-        logger.exception("Failed to run ETL!")
+    await etl.run()

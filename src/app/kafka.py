@@ -2,17 +2,13 @@ import asyncio
 from typing import Optional, Any
 
 import orjson
-from aiokafka import AIOKafkaProducer, AIOKafkaConsumer
+from aiokafka import AIOKafkaProducer
 
 from app.settings import settings
 
 
 def serializer(value: dict[str, Any]) -> bytes:
     return orjson.dumps(value)
-
-
-def deserializer(serialized: bytes) -> dict[str, Any]:
-    return orjson.loads(serialized)
 
 
 class KafkaProducerContainer:
@@ -32,14 +28,3 @@ class KafkaProducerContainer:
 
 
 producer_container = KafkaProducerContainer()
-
-
-def get_consumer() -> AIOKafkaConsumer:
-    return AIOKafkaConsumer(
-        settings.KAFKA.TOPIC,
-        loop=asyncio.get_event_loop(),
-        bootstrap_servers=settings.KAFKA.BOOTSTRAP_SERVERS,
-        group_id=settings.KAFKA.CONSUMER_GROUP_ID,
-        enable_auto_commit=False,
-        value_deserializer=deserializer,
-    )

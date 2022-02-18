@@ -85,10 +85,7 @@ http://0.0.0.0/api/docs#/v1%20progresses/send_film_progress_api_v1_progresses_fi
 Для анализа произодительности системы необходимо перейти в UI cAdvisor и выбрать
 интересующий контейнер
 http://0.0.0.0:8080/docker/
-```shell
-docker-compose up --build
-```
-3. Создать топик Kafka
+
 
 ### Тестирование
 Собрать тестовое окружение и запустить тесты

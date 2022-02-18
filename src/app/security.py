@@ -1,5 +1,4 @@
 import secrets
-from typing import List
 
 from fastapi.security import HTTPBasicCredentials
 from jose import JWTError, jwt
@@ -17,7 +16,7 @@ class NotAuthenticatedError(BaseSecurityError):
 
 
 class TokenData(BaseModel):
-    roles: List[str]
+    roles: list[str]
 
 
 def verify_basic_auth_credentials(credentials: HTTPBasicCredentials) -> None:

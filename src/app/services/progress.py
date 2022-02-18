@@ -18,10 +18,6 @@ class ProgressServiceError(Exception):
     pass
 
 
-class SendingToKafkaError(ProgressServiceError):
-    pass
-
-
 class ProgressService:
     TOPIC: str = settings.KAFKA.TOPIC
 
@@ -32,7 +28,7 @@ class ProgressService:
     @backoff.on_exception(
         backoff.expo,
         max_time=settings.BACKOFF.MAX_TIME_SEC,
-        exception=SendingToKafkaError,
+        exception=RequestTimedOutError,
     )
     async def send_to_topic(
         self,
@@ -48,7 +44,8 @@ class ProgressService:
         try:
             await self.kafka_producer.send(self.TOPIC, data)
         except RequestTimedOutError as err:
-            raise SendingToKafkaError from err
+            # catch it in backoff
+            raise err
         except KafkaError:
             logger.exception(
                 "Failed to send data to kafka topic %s. Data: %s",
