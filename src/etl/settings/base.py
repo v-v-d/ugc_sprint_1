@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Optional
 
 from pydantic import BaseSettings, AnyUrl, validator
 
@@ -19,7 +20,7 @@ class ClickHouseSettings(BaseSettings):
     PORT: str
     PROTOCOL: str = "http"
     TABLE_NAME: str
-    URL: AnyUrl = None
+    URL: Optional[AnyUrl] = None
 
     @validator("URL", pre=True)
     def build_url(cls, v, values) -> str:

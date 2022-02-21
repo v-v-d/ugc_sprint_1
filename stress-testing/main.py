@@ -135,5 +135,5 @@ def run_clickhouse_stress_test(chunk_size: int) -> None:
 
 
 if __name__ == "__main__":
-    # run_postgres_stress_test(settings.CHUNK_SIZE)
+    run_postgres_stress_test(settings.CHUNK_SIZE)
     run_clickhouse_stress_test(settings.CHUNK_SIZE)
