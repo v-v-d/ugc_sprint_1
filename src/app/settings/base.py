@@ -73,7 +73,7 @@ class SentrySettings(BaseSettings):
     SAMPLE_RATE: float = 1.0
 
     class Config:
-        env_prefix = 'SENTRY_'
+        env_prefix = "SENTRY_"
 
 
 class CommonSettings(BaseSettings):
