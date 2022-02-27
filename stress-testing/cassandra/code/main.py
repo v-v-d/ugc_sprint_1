@@ -40,21 +40,25 @@ def elapsed(func: Callable) -> Callable:
             f.write(f"{func.__name__} {args} {kwargs} elapsed {elapsed} \n")
 
         return result
+
     return wrapper
 
 
 def create_tables() -> None:
-    session.execute("""
+    session.execute(
+        """
         CREATE KEYSPACE IF NOT EXISTS test_keyspace
         WITH REPLICATION = { 
             'class' : 'SimpleStrategy', 
             'replication_factor' : 3 
         };
-    """)
+    """
+    )
 
     session.set_keyspace(KEYSPACE)
 
-    session.execute("""
+    session.execute(
+        """
     CREATE TABLE IF NOT EXISTS film_ratings (
         id uuid,
         film_id uuid,
@@ -64,9 +68,11 @@ def create_tables() -> None:
         updated_at timestamp,
         PRIMARY KEY (id)
     );
-    """)
+    """
+    )
 
-    session.execute("""
+    session.execute(
+        """
     CREATE TABLE IF NOT EXISTS film_reviews (
         id uuid,
         film_id uuid,
@@ -77,9 +83,11 @@ def create_tables() -> None:
         updated_at timestamp,
         PRIMARY KEY (id)
     );
-    """)
+    """
+    )
 
-    session.execute("""
+    session.execute(
+        """
     CREATE TABLE IF NOT EXISTS bookmarks (
         id uuid,
         film_id uuid,
@@ -87,7 +95,8 @@ def create_tables() -> None:
         created_at timestamp,
         PRIMARY KEY (id)
     );
-    """)
+    """
+    )
 
 
 def get_film_rating_data() -> TEST_DATA_TYPE:
@@ -111,7 +120,9 @@ def get_bookmark_data() -> TEST_DATA_TYPE:
     return [fake.datetime.timestamp(start=fake.datetime.CURRENT_YEAR)]
 
 
-def generate_test_data(data_builder: Callable) -> Generator[list[TEST_DATA_TYPE], None, None]:
+def generate_test_data(
+    data_builder: Callable,
+) -> Generator[list[TEST_DATA_TYPE], None, None]:
     chunk = []
 
     for data in FILM_IDS_USER_IDS_CONTAINER:
@@ -131,13 +142,15 @@ def insert_test_data(data_builder: Callable, insert_stmt: PreparedStatement) -> 
     for chunk in generate_test_data(data_builder):
         for row in chunk:
             session.execute(insert_stmt, row)
-        print(f"Data chunk loaded with size {len(chunk)} and stmt {insert_stmt.query_string}.")
+        print(
+            f"Data chunk loaded with size {len(chunk)} and stmt {insert_stmt.query_string}."
+        )
 
 
 @elapsed
 def insert_film_ratings():
     stmt = session.prepare(
-        'INSERT INTO film_ratings (id,film_id,user_id,rating,created_at,updated_at) VALUES (?,?,?,?,?,?)'
+        "INSERT INTO film_ratings (id,film_id,user_id,rating,created_at,updated_at) VALUES (?,?,?,?,?,?)"
     )
     insert_test_data(get_film_rating_data, stmt)
 
@@ -145,14 +158,16 @@ def insert_film_ratings():
 @elapsed
 def insert_film_reviews():
     stmt = session.prepare(
-        'INSERT INTO film_reviews (id,film_id,user_id,text,rating,created_at,updated_at) VALUES (?,?,?,?,?,?,?)'
+        "INSERT INTO film_reviews (id,film_id,user_id,text,rating,created_at,updated_at) VALUES (?,?,?,?,?,?,?)"
     )
     insert_test_data(get_film_review_data, stmt)
 
 
 @elapsed
 def insert_bookmarks():
-    stmt = session.prepare('INSERT INTO bookmarks (id,film_id,user_id,created_at) VALUES (?,?,?,?)')
+    stmt = session.prepare(
+        "INSERT INTO bookmarks (id,film_id,user_id,created_at) VALUES (?,?,?,?)"
+    )
     insert_test_data(get_bookmark_data, stmt)
 
 
@@ -189,7 +204,7 @@ def select_film_avg_rating(film_id: str):
 @elapsed
 def insert_and_select_film_new_rating(film_id: str, user_id: str):
     stmt = session.prepare(
-        'INSERT INTO film_ratings (id,film_id,user_id,rating,created_at,updated_at) VALUES (?,?,?,?,?,?)'
+        "INSERT INTO film_ratings (id,film_id,user_id,rating,created_at,updated_at) VALUES (?,?,?,?,?,?)"
     )
 
     data = [fake.cryptographic.uuid_object(), film_id, user_id]
@@ -223,5 +238,5 @@ def main():
             session.shutdown()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
