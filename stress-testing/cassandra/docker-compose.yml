@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  code:
+    build: .
+    depends_on:
+      - cassandra1
+      - cassandra2
+      - cassandra3
+    volumes:
+      - ./result:/code/result
+      - ./code:/code
+
+  cassandra1:
+    image: docker.io/bitnami/cassandra:4.0
+    expose:
+      - "7000"
+      - "9042"
+    environment:
+      - CASSANDRA_SEEDS=cassandra,cassandra2,cassandra3
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_PASSWORD_SEEDER=yes
+      - CASSANDRA_PASSWORD=cassandra
+      - MAX_HEAP_SIZE=1G
+      - HEAP_NEWSIZE=200M
+
+  cassandra2:
+    image: docker.io/bitnami/cassandra:4.0
+    expose:
+      - "7000"
+      - "9042"
+    environment:
+      - CASSANDRA_SEEDS=cassandra,cassandra2,cassandra3
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_PASSWORD=cassandra
+      - MAX_HEAP_SIZE=1G
+      - HEAP_NEWSIZE=200M
+
+  cassandra3:
+    image: docker.io/bitnami/cassandra:4.0
+    expose:
+      - "7000"
+      - "9042"
+    environment:
+      - CASSANDRA_SEEDS=cassandra,cassandra2,cassandra3
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_PASSWORD=cassandra
+      - MAX_HEAP_SIZE=1G
+      - HEAP_NEWSIZE=200M

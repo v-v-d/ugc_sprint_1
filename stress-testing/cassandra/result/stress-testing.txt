@@ -1,0 +1,28 @@
+insert_film_ratings () {} elapsed 751.8773137759999 
+insert_film_reviews () {} elapsed 762.0684929540002 
+insert_bookmarks () {} elapsed 723.6195597519982 
+select_rated_films_by_user (UUID('655caf98-15c2-4244-84c8-44af49128dee'),) {} elapsed 4.80591899099818 
+select_film_ratings_qty (UUID('2ebb3cbb-3b1a-4ac0-b0b6-cf7d007df3a8'),) {} elapsed 5.025055496000277 
+select_bookmarks_by_user (UUID('655caf98-15c2-4244-84c8-44af49128dee'),) {} elapsed 4.107853631998296 
+select_film_avg_rating (UUID('2ebb3cbb-3b1a-4ac0-b0b6-cf7d007df3a8'),) {} elapsed 4.882832403003704 
+insert_and_select_film_new_rating (UUID('2ebb3cbb-3b1a-4ac0-b0b6-cf7d007df3a8'), UUID('655caf98-15c2-4244-84c8-44af49128dee')) {} elapsed 0.003718103005667217 
+select_rated_films_by_user (UUID('175537e2-b4a9-4c6a-a666-614ca0137c27'),) {} elapsed 4.330390774994157 
+select_film_ratings_qty (UUID('f377d431-2499-4129-8e24-b9560ac8c0c4'),) {} elapsed 4.99091160199896 
+select_bookmarks_by_user (UUID('175537e2-b4a9-4c6a-a666-614ca0137c27'),) {} elapsed 4.20258850800019 
+select_film_avg_rating (UUID('f377d431-2499-4129-8e24-b9560ac8c0c4'),) {} elapsed 4.909749231002934 
+insert_and_select_film_new_rating (UUID('f377d431-2499-4129-8e24-b9560ac8c0c4'), UUID('175537e2-b4a9-4c6a-a666-614ca0137c27')) {} elapsed 0.0037627819983754307 
+select_rated_films_by_user (UUID('d2a64406-5569-4e25-9191-1a3a8a7bd196'),) {} elapsed 4.639330772995891 
+select_film_ratings_qty (UUID('97755597-eb05-4ae1-9bd9-53c3b884e700'),) {} elapsed 4.789593667002919 
+select_bookmarks_by_user (UUID('d2a64406-5569-4e25-9191-1a3a8a7bd196'),) {} elapsed 3.8475225739966845 
+select_film_avg_rating (UUID('97755597-eb05-4ae1-9bd9-53c3b884e700'),) {} elapsed 4.851038146996871 
+insert_and_select_film_new_rating (UUID('97755597-eb05-4ae1-9bd9-53c3b884e700'), UUID('d2a64406-5569-4e25-9191-1a3a8a7bd196')) {} elapsed 0.003712593999807723 
+select_rated_films_by_user (UUID('bf5b4ae6-944f-4123-937b-f5fb70c2e9ea'),) {} elapsed 4.542869949997112 
+select_film_ratings_qty (UUID('d43b6064-95a6-48cb-b411-5a12ce21210c'),) {} elapsed 4.903973954998946 
+select_bookmarks_by_user (UUID('bf5b4ae6-944f-4123-937b-f5fb70c2e9ea'),) {} elapsed 4.139439272003074 
+select_film_avg_rating (UUID('d43b6064-95a6-48cb-b411-5a12ce21210c'),) {} elapsed 5.014506554995023 
+insert_and_select_film_new_rating (UUID('d43b6064-95a6-48cb-b411-5a12ce21210c'), UUID('bf5b4ae6-944f-4123-937b-f5fb70c2e9ea')) {} elapsed 0.003589119005482644 
+select_rated_films_by_user (UUID('fa47cba7-a5a6-44c6-a60d-fba08b90b5d9'),) {} elapsed 4.220202723998227 
+select_film_ratings_qty (UUID('3e353923-25f1-4e63-a6f7-d28bc24bec95'),) {} elapsed 4.807188532999135 
+select_bookmarks_by_user (UUID('fa47cba7-a5a6-44c6-a60d-fba08b90b5d9'),) {} elapsed 4.005512314004591 
+select_film_avg_rating (UUID('3e353923-25f1-4e63-a6f7-d28bc24bec95'),) {} elapsed 4.791668575999211 
+insert_and_select_film_new_rating (UUID('3e353923-25f1-4e63-a6f7-d28bc24bec95'), UUID('fa47cba7-a5a6-44c6-a60d-fba08b90b5d9')) {} elapsed 0.0035071749953203835 
