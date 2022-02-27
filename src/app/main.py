@@ -8,6 +8,7 @@ from app.api import api_root
 from app.api.docs import router as api_docs
 from app.apm import init_apm
 from app.kafka import producer_container
+from app.sentry import init_sentry
 from app.settings import settings
 from app.settings.logging import LOGGING
 
@@ -38,3 +39,4 @@ app.include_router(api_docs)
 app.include_router(api_root, prefix="/api")
 
 init_apm(app)
+init_sentry(app)

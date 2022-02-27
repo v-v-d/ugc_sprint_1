@@ -16,3 +16,4 @@ services:
       - DEBUG=False
       - TESTING=True
       - APM_ENABLED=False
+      - SENTRY_ENABLED=False

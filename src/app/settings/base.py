@@ -65,6 +65,17 @@ class BackoffSettings(BaseSettings):
         env_prefix = "BACKOFF_"
 
 
+class SentrySettings(BaseSettings):
+    DSN: str
+    ENVIRONMENT: str
+    ENABLED: bool = True
+    DEBUG: bool = False
+    SAMPLE_RATE: float = 1.0
+
+    class Config:
+        env_prefix = 'SENTRY_'
+
+
 class CommonSettings(BaseSettings):
     PROJECT_NAME: str = "ugc-app"
     OPENAPI_URL: str = "/api/openapi.json"
@@ -79,3 +90,4 @@ class CommonSettings(BaseSettings):
     APM: APMSettings = APMSettings()
     KAFKA: KafkaSettings = KafkaSettings()
     BACKOFF: BackoffSettings = BackoffSettings()
+    SENTRY: SentrySettings = SentrySettings()

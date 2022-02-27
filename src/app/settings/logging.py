@@ -47,6 +47,14 @@ LOGGING = {
             "maxBytes": 1024**3 * 10,
             "backupCount": 10,
         },
+        "sentry": {
+            "level": settings.LOG_LEVEL,
+            "class": "logging.handlers.RotatingFileHandler",
+            "formatter": "default",
+            "filename": Path(settings.DIR_LOGS / "sentry.log").as_posix(),
+            "maxBytes": 1024**3 * 10,
+            "backupCount": 10,
+        },
     },
     "loggers": {
         "uvicorn.access": {
@@ -66,6 +74,11 @@ LOGGING = {
         },
         "app.services.progress": {
             "handlers": ["console", "progress"],
+            "level": settings.LOG_LEVEL,
+            "propagate": False,
+        },
+        "app.sentry": {
+            "handlers": ["console", "sentry"],
             "level": settings.LOG_LEVEL,
             "propagate": False,
         },
